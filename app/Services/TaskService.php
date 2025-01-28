@@ -17,12 +17,12 @@ class TaskService {
         $order = $request->order;
 
         if ($name) {
-            $task = Task::where('name', 'like', "%{$name}%")->orderBy($sort, $order)->get();
+            $task = Task::where('name', 'like', "%{$name}%")->orderBy($sort, $order)->paginate(10);
         }
         else {
-            $task = Task::all();
+            $task = Task::query()->paginate(10);
         }
-
+        
         return response()->json($task);
     }
 
